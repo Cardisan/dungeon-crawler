@@ -8,7 +8,7 @@ class Enemy extends Entity
         this.weapon = weapon;
     }
 
-    // Return current player's weapon 
+    // Return current enemy's weapon 
     getCurrentWeapon(){
         return this.weapon;
     }

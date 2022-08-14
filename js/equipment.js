@@ -10,6 +10,7 @@ class Equipment
     // -
     constructor(){
         this.weapons = [];
+        this.gold = 0;
     }
 
     // Add item to equipment
@@ -19,7 +20,7 @@ class Equipment
         }
     }
 
-    // Equips weapon with givern index
+    // Equips weapon with given index
     equipWeapon(index){
         this.chosenWeaponIndex = index;
     }
