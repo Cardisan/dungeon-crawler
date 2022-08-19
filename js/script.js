@@ -1,3 +1,5 @@
+console.log('Started script.js');
+
 class Field{
 	constructor(){
 		this.edges = random([0, 0, 0, 0, 1]).toString().concat(random([0, 0, 0, 0, 1]).toString(), random([0, 0, 0, 0, 1]).toString(), random([0, 0, 0, 0, 1]).toString());
@@ -6,17 +8,7 @@ class Field{
 	}
 }
 
-function setup(){
-	createCanvas(resolution + 200, resolution);
-	matrix.length = dimensions;
-	console.log(matrix.length);
-	for (let i = 0; i < dimensions; i++){
-		matrix[i] = [];
-		for (let j = 0; j < dimensions; j++){
-			matrix[i][j] = new Field;
-		}
-	}
-}
+
 function nextLevel(){
 	alert(`You go to the next level!`);
 }
@@ -24,14 +16,14 @@ function nextLevel(){
 let resolution = 320;
 let dimensions = 10;
 let matrix = [];
-let playerCoords = [0, 0];
+let playerCoords = new Point();
 let frameCounter = 0;
 let playerSpeed = 1;
 let playerPos = [resolution/dimensions/2, resolution/dimensions/2];
 
 
-function spawnRandomly(category){
-	matrix[floor(random(0, 10))][floor(random(0, 10))].content.push(category);
+function spawnRandomly(mapEntity){
+	matrix[floor(random(0, 10))][floor(random(0, 10))].content.push(mapEntity);
 }
 function makeDoubleWalls(){
 	for (let i = 0; i < matrix.length; i++){
@@ -69,8 +61,8 @@ function refresh5(){
 function move(direction){
 	if (direction == 'left' && playerPos[1] > 0){
 		if (playerPos[1] % (resolution/dimensions) <= 5){
-			if (playerCoords[1] >= 1){
-				if (matrix[playerCoords[0]][playerCoords[1]].edges[0] == 0 && matrix[playerCoords[0]][playerCoords[1] - 1].edges[2] == 0){
+			if (playerCoords.y >= 1){
+				if (matrix[playerCoords.x][playerCoords.y].edges[0] == 0 && matrix[playerCoords.x][playerCoords.y - 1].edges[2] == 0){
 					playerPos[1] -= playerSpeed;
 				}
 			}
@@ -81,8 +73,8 @@ function move(direction){
 	}
 	if (direction == 'up' && playerPos[0] > 0){
 		if (playerPos[0] % (resolution/dimensions) <= 5){
-			if (playerCoords[0] >= 1){
-				if (matrix[playerCoords[0]][playerCoords[1]].edges[1] == 0 && matrix[playerCoords[0] - 1][playerCoords[1]].edges[3] == 0){
+			if (playerCoords.x >= 1){
+				if (matrix[playerCoords.x][playerCoords.y].edges[1] == 0 && matrix[playerCoords.x - 1][playerCoords.y].edges[3] == 0){
 					playerPos[0] -= playerSpeed;
 				}
 			}
@@ -91,10 +83,10 @@ function move(direction){
 			playerPos[0] -= playerSpeed;
 		}
 	}
-	if (direction == 'right' && playerPos[1] < resolution){
+	if (direction == 'right' && playerPos[1] < resolution - 5){
 		if (playerPos[1] % (resolution/dimensions) >= resolution/dimensions - 5){
-			if (playerCoords[1] < dimensions){
-				if (matrix[playerCoords[0]][playerCoords[1]].edges[2] == 0 && matrix[playerCoords[0]][playerCoords[1] + 1].edges[0] == 0){
+			if (playerCoords.y < dimensions){
+				if (matrix[playerCoords.x][playerCoords.y].edges[2] == 0 && matrix[playerCoords.x][playerCoords.y + 1].edges[0] == 0){
 					playerPos[1] += playerSpeed;
 				}
 			}
@@ -103,10 +95,10 @@ function move(direction){
 			playerPos[1] += playerSpeed;
 		}
 	}
-	if (direction == 'down' && playerPos[0] < resolution){
+	if (direction == 'down' && playerPos[0] < resolution - 5){
 		if (playerPos[0] % (resolution/dimensions) >= resolution/dimensions - 5){
-			if (playerCoords[0] < dimensions){
-				if(matrix[playerCoords[0]][playerCoords[1]].edges[3] == 0 && matrix[playerCoords[0] + 1][playerCoords[1]].edges[1] == 0){
+			if (playerCoords.x < dimensions){
+				if(matrix[playerCoords.x][playerCoords.y].edges[3] == 0 && matrix[playerCoords.x + 1][playerCoords.y].edges[1] == 0){
 					playerPos[0] += playerSpeed;
 				}
 			}
@@ -118,7 +110,8 @@ function move(direction){
 	updatePlayerCoords();
 }
 function updatePlayerCoords(){
-	playerCoords = [floor(playerPos[0]/32), floor(playerPos[1]/32)];
+	playerCoords.x = floor(playerPos[0]/32);
+	playerCoords.y = floor(playerPos[1]/32);
 }
 function keyPressed(){
 	if (keyCode == LEFT_ARROW){ //LEFT
@@ -153,3 +146,7 @@ fight = new Fight(player, enemy1, undefined);
 while(fight.isFinished == false){
 	fight.hitAction();
 }
+
+
+
+console.log('Finished script.js');

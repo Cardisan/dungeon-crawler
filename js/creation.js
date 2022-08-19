@@ -1,4 +1,5 @@
-class Category{
+console.log('Starting creation.js');
+class mapEntity{
 	constructor(name, image, specialAction, isPickable, isSingleUse){
 		this.name = name;
 		this.image = image;
@@ -7,5 +8,5 @@ class Category{
 		this.isSingleUse = isSingleUse;
 	}
 }
+console.log('Finished creation.js');
 
-let staircase = new Category('staircase', staircaseImg, 'nextLevel', false, false);
