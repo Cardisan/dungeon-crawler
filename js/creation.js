@@ -8,4 +8,4 @@ class Category{
 	}
 }
 
-let staircase = new Category('staircase', staircaseImg, 'nextLevel', false, false);
+let staircase = new Category('staircase', staircaseImg, 'nextLevel()', false, false);

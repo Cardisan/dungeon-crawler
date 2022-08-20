@@ -27,8 +27,7 @@ let matrix = [];
 let playerCoords = [0, 0];
 let frameCounter = 0;
 let playerSpeed = 1;
-let playerPos = [resolution/dimensions/2, resolution/dimensions/2];
-
+let playerPos = [resolution/dimensions/2, resolution/dimensions/2]; // IT DOESN'T EXIST
 
 function spawnRandomly(category){
 	matrix[floor(random(0, 10))][floor(random(0, 10))].content.push(category);
@@ -153,3 +152,4 @@ fight = new Fight(player, enemy1, undefined);
 while(fight.isFinished == false){
 	fight.hitAction();
 }
+

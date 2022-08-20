@@ -47,8 +47,7 @@ class Entity
 
     // Deal random damage from range ("damageMin" - "damageMax") to entity ("entity")
     static dealDmgToEntity_withRange(entity, damageMin, damageMax){
-        //let dmg = floor(random(damageMin, damageMax + 1));
-        let dmg = Math.round(Math.random() * (damageMax - damageMin)) + damageMin;
+        let dmg = Math.floor(Math.random() * (damageMax - damageMin + 1)) + damageMin;
         entity.HP -= dmg;
         entity.killEntityIfHPLessThan0();
         return dmg;
@@ -56,8 +55,7 @@ class Entity
 
     // Deal damage with weapon ("weapon") from range to entity ("entity")
     static dealDmgToEntity_withWeapon(entity, weapon){
-        //let dmg = floor(random(weapon.damageMin, weapon.damageMax + 1));
-        let dmg = Math.round(Math.random() * (weapon.damageMax - weapon.damageMin)) + weapon.damageMin;
+        let dmg = Math.floor(Math.random() * (weapon.damageMax - weapon.damageMin + 1)) + weapon.damageMin;
         entity.HP -= dmg;
         entity.killEntityIfHPLessThan0();
         return dmg;
