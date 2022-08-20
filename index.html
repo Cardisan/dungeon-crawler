@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>A Basic HTML5 Template</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 
@@ -13,19 +14,20 @@
 
 <body>
   <h1>Welcome to personal project</h1>
-  <script src="js/point.js"></script>
-  <script src="js/fight.js"></script>
-  <script src="js/equipment.js"></script>
-  <script src="js/entities/entity.js"></script>
-  <script src="js/entities/enemy.js"></script>
-  <script src="js/entities/player.js"></script>
-  <script src="js/items/item.js"></script>
-  <script src="js/items/weapon.js"></script>
-  <script src="js/script.js"></script>
-  <script src="js/p5.js"></script>
-  <script src="js/preload.js"></script>
-  <script src="js/creation.js"></script>
-  <script src="js/presentation.js"></script>
-  <script src="js/helpers.js"></script>
+  <script src="js/preload.js"></script> <!-- Independent - loading network files -->
+  <script src="js/setup.js"></script> <!-- Dependent - creating global variables and objects -->
+  <script src="js/p5.js"></script> <!-- Library -->
+  <script src="js/creation.js"></script> <!-- Independent - class definition -->
+  <script src="js/point.js"></script> <!-- Independent - class definition -->
+  <script src="js/fight.js"></script> <!-- Dependent - class definition -->
+  <script src="js/equipment.js"></script> <!-- Dependent - class definition -->
+  <script src="js/entities/entity.js"></script> <!-- Independent - class definition -->
+  <script src="js/entities/enemy.js"></script> <!-- Dependent - child class definition -->
+  <script src="js/entities/player.js"></script> <!-- Dependent - child class definition-->
+  <script src="js/items/item.js"></script> <!-- Independent - class definition-->
+  <script src="js/items/weapon.js"></script> <!-- Dependent - child class definition-->
+  <script src="js/script.js" defer></script> <!-- Dependent - functions and variables -->
+  <script src="js/presentation.js"></script> <!-- Dependent - drawing on canvas-->
+  <script src="js/helpers.js"></script> <!-- Independent - helper functions -->
 </body>
 </html>

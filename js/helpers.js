@@ -1,3 +1,5 @@
+console.log('Started helpers.js');
+
 function binToDec(binaryString){ //Turns 4-bit binary String into a decimal Number 
 	let result = 0;
 	if (binaryString[0] == 1){
@@ -39,3 +41,18 @@ function getNeighbour(coords, edge){ //Accepts edge coords and returns neighbour
 	console.log(`getNeighbour(): Neighbour coords are at ${neighbourCoords} and its neighbouring edge is ${neighbourEdge}`);
 	return [neighbourCoords, neighbourEdge];
 }
+function spawnEachEnemy(){ //Spawns one of each enemy for debugging 
+	spawnRandomly(snake);
+	spawnRandomly(redSnake);
+	spawnRandomly(fireSnake);
+	spawnRandomly(rat);
+	spawnRandomly(madRat);
+	spawnRandomly(sheep);
+	spawnRandomly(bear);
+	spawnRandomly(blueBear);
+	spawnRandomly(wolf);
+	spawnRandomly(brownWolf);
+	spawnRandomly(darkWolf);
+	spawnRandomly(necroWolf);
+}
+console.log('Finished helpers.js');
