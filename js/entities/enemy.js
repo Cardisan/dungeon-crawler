@@ -2,9 +2,9 @@ class Enemy extends Entity
 {
     weapon;
 
-    // name: string, maxHP: int, HP: int, stagePosition: Point
-    constructor(name, maxHP, HP, stagePosition, weapon){
-        super(name, maxHP, HP, stagePosition);
+    // name: string, maxHP: int, HP: int, stageCoords: Point
+    constructor(name, maxHP, HP, stageCoords, weapon){
+        super(name, maxHP, HP, stageCoords);
         this.weapon = weapon;
     }
 

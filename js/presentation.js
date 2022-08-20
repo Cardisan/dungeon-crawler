@@ -18,10 +18,10 @@ function draw(){
 	textSize(10);
 	fill(0);
 	text(`Player position: ${playerPos}`, resolution + 5, 10);
-	text(`Player coords: ${playerCoords.x}, ${playerCoords.y}`, resolution + 5, 30);
+	text(`Player coords: ${player.stageCoords.x}, ${player.stageCoords.y}`, resolution + 5, 30);
 	let fieldContent = ''
-	for (let i = 0; i < matrix[playerCoords.x][playerCoords.y].content.length; i++){
-		fieldContent = concat(fieldContent, matrix[playerCoords.x][playerCoords.y].content[i].name, ', ');
+	for (let i = 0; i < matrix[player.stageCoords.x][player.stageCoords.y].content.length; i++){
+		fieldContent = concat(fieldContent, matrix[player.stageCoords.x][player.stageCoords.y].content[i].name, ', ');
 	}
 	text(`Field contains: ${fieldContent}`, resolution + 5, 50);
 	textSize(32);

@@ -16,10 +16,13 @@ function nextLevel(){
 let resolution = 320;
 let dimensions = 10;
 let matrix = [];
-let playerCoords = new Point();
 let frameCounter = 0;
 let playerSpeed = 1;
 let playerPos = [resolution/dimensions/2, resolution/dimensions/2]; // IT DOESN'T EXIST
+let player = new Player("Stefan", 100, 100, new Point());
+player.equipment.addItemToEquipment(new Weapon("Super awesome sword", 5, 15, undefined));
+player.equipment.addItemToEquipment(new Weapon("God sword", 45, 60, 9500));
+player.equipment.equipWeapon(0);
 
 function spawnRandomly(mapEntity){
 	matrix[floor(random(0, 10))][floor(random(0, 10))].content.push(mapEntity);
@@ -60,8 +63,8 @@ function refresh5(){
 function move(direction){
 	if (direction == 'left' && playerPos[1] > 0){
 		if (playerPos[1] % (resolution/dimensions) <= 5){
-			if (playerCoords.y >= 1){
-				if (matrix[playerCoords.x][playerCoords.y].edges[0] == 0 && matrix[playerCoords.x][playerCoords.y - 1].edges[2] == 0){
+			if (player.stageCoords.y >= 1){
+				if (matrix[player.stageCoords.x][player.stageCoords.y].edges[0] == 0 && matrix[player.stageCoords.x][player.stageCoords.y - 1].edges[2] == 0){
 					playerPos[1] -= playerSpeed;
 				}
 			}
@@ -72,8 +75,8 @@ function move(direction){
 	}
 	if (direction == 'up' && playerPos[0] > 0){
 		if (playerPos[0] % (resolution/dimensions) <= 5){
-			if (playerCoords.x >= 1){
-				if (matrix[playerCoords.x][playerCoords.y].edges[1] == 0 && matrix[playerCoords.x - 1][playerCoords.y].edges[3] == 0){
+			if (player.stageCoords.x >= 1){
+				if (matrix[player.stageCoords.x][player.stageCoords.y].edges[1] == 0 && matrix[player.stageCoords.x - 1][player.stageCoords.y].edges[3] == 0){
 					playerPos[0] -= playerSpeed;
 				}
 			}
@@ -84,8 +87,8 @@ function move(direction){
 	}
 	if (direction == 'right' && playerPos[1] < resolution - 5){
 		if (playerPos[1] % (resolution/dimensions) >= resolution/dimensions - 5){
-			if (playerCoords.y < dimensions){
-				if (matrix[playerCoords.x][playerCoords.y].edges[2] == 0 && matrix[playerCoords.x][playerCoords.y + 1].edges[0] == 0){
+			if (player.stageCoords.y < dimensions){
+				if (matrix[player.stageCoords.x][player.stageCoords.y].edges[2] == 0 && matrix[player.stageCoords.x][player.stageCoords.y + 1].edges[0] == 0){
 					playerPos[1] += playerSpeed;
 				}
 			}
@@ -96,8 +99,8 @@ function move(direction){
 	}
 	if (direction == 'down' && playerPos[0] < resolution - 5){
 		if (playerPos[0] % (resolution/dimensions) >= resolution/dimensions - 5){
-			if (playerCoords.x < dimensions){
-				if(matrix[playerCoords.x][playerCoords.y].edges[3] == 0 && matrix[playerCoords.x + 1][playerCoords.y].edges[1] == 0){
+			if (player.stageCoords.x < dimensions){
+				if(matrix[player.stageCoords.x][player.stageCoords.y].edges[3] == 0 && matrix[player.stageCoords.x + 1][player.stageCoords.y].edges[1] == 0){
 					playerPos[0] += playerSpeed;
 				}
 			}
@@ -109,8 +112,23 @@ function move(direction){
 	updatePlayerCoords();
 }
 function updatePlayerCoords(){
-	playerCoords.x = floor(playerPos[0]/32);
-	playerCoords.y = floor(playerPos[1]/32);
+	console.log("A");
+	previousCoords = new Point(player.stageCoords.x, player.stageCoords.y);
+	player.stageCoords.x = floor(playerPos[0]/32);
+	player.stageCoords.y = floor(playerPos[1]/32);
+
+	// if player coordinated changed, call event
+	if(previousCoords.x != player.stageCoords.x || previousCoords.y != player.stageCoords.y)
+		onPlayerCoordsChanged();
+}
+function onPlayerCoordsChanged(){
+	console.log("B");
+	// Start fight with every Enemy in current player coordinates
+	for(var i = 0; i < matrix[player.stageCoords.x][player.stageCoords.y].content.length; i++){
+		if(matrix[player.stageCoords.x][player.stageCoords.y].content[i].specialAction == "startFight"){
+			startFight(player, matrix[player.stageCoords.x][player.stageCoords.y].content[i].entity, undefined);
+		}
+	}
 }
 function keyPressed(){
 	if (keyCode == LEFT_ARROW){ //LEFT
@@ -130,22 +148,5 @@ function keyPressed(){
 //DEBUG !!!
 const DEBUG_MODE = true;
 const DEBUG_MODE_FightClass = true;
-
-// player creation
-player = new Player("Stefan", 100, 100, new Point(1,1));
-player.equipment.addItemToEquipment(new Weapon("Super awesome sword", 5, 15, undefined));
-player.equipment.addItemToEquipment(new Weapon("God sword", 45, 60, 9500));
-player.equipment.equipWeapon(0);
-
-// enemy creation
-enemy1 = new Enemy("Jakis Wiesniak", 100, 100, new Point(2,1), new Weapon("Shit sword", 3, 6, 5));
-
-// Fight
-fight = new Fight(player, enemy1, undefined);
-while(fight.isFinished == false){
-	fight.hitAction();
-}
-
-
 
 console.log('Finished script.js');

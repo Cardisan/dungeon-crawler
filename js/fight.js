@@ -50,3 +50,10 @@ class Fight{
             this.entityATurn = true;
     }
 }
+
+function startFight(player, enemy1, undefined){
+    fight = new Fight(player, enemy1, undefined);
+    while(fight.isFinished == false){
+        fight.hitAction();
+    }
+}

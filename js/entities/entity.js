@@ -3,11 +3,11 @@ class Entity
     name;
     maxHP;
     HP;
-    stagePosition;
+    stageCoords;
     alive;
 
-    // name: string, maxHP: int, HP: int, stagePosition: Point
-    constructor(name, maxHP, HP, stagePosition){
+    // name: string, maxHP: int, HP: int, stageCoords: Point
+    constructor(name, maxHP, HP, stageCoords){
         if(typeof name == "string")
             this.name = name;
         else
@@ -26,8 +26,8 @@ class Entity
         this.HP = HP;
 
         // TODO: if(NA ZEWNĄTRZ STAGE'A)
-        // throw "Entity can't be outside of stage!!! stagePosition = " + stagePosition;
-        this.stagePosition = stagePosition;
+        // throw "Entity can't be outside of stage!!! stageCoords = " + stageCoords;
+        this.stageCoords = stageCoords;
     }
 
     // Check if entity's HP is 0 or less and process its death
