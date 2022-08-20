@@ -112,7 +112,6 @@ function move(direction){
 	updatePlayerCoords();
 }
 function updatePlayerCoords(){
-	console.log("A");
 	previousCoords = new Point(player.stageCoords.x, player.stageCoords.y);
 	player.stageCoords.x = floor(playerPos[0]/32);
 	player.stageCoords.y = floor(playerPos[1]/32);
@@ -121,12 +120,13 @@ function updatePlayerCoords(){
 	if(previousCoords.x != player.stageCoords.x || previousCoords.y != player.stageCoords.y)
 		onPlayerCoordsChanged();
 }
+// event which should be called when played changed coordinates
 function onPlayerCoordsChanged(){
-	console.log("B");
-	// Start fight with every Enemy in current player coordinates
+	// Start fight with every Enemy in current player coordinates (if enemy are alive)
 	for(var i = 0; i < matrix[player.stageCoords.x][player.stageCoords.y].content.length; i++){
 		if(matrix[player.stageCoords.x][player.stageCoords.y].content[i].specialAction == "startFight"){
-			startFight(player, matrix[player.stageCoords.x][player.stageCoords.y].content[i].entity, undefined);
+			if(matrix[player.stageCoords.x][player.stageCoords.y].content[i].entity.alive == true)
+				startFight(player, matrix[player.stageCoords.x][player.stageCoords.y].content[i].entity, undefined);
 		}
 	}
 }
